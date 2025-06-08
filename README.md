@@ -86,7 +86,7 @@ config.js: in "getFilePreview" function: I have changed "return this.bucket.getF
 # Assignments:
 
 => improve the UI of the website <br>
-=> separate the databases & storage services from config.js by creating two separate files <br>
+=> separate the databases & storage services from config.js by creating two separate files ✅ <br>
 => improve the loading part in "App.jsx" if you want... <br>
 => properly handle all the promises by adding appropriate ".catch()" part <br>
 => currently we are fetching and storing the information related to the posts from our databases directly in out components, which is bad because it requires proper state management to manipulate this kind of information between many components, so design a proper state management for this using redux toolkit, and for doing this create another slice named "postSlice" and also add another reducer named "post" in the store <br>

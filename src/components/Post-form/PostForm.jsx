@@ -1,9 +1,10 @@
 import React, {useCallback, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {Button, Input, Select, RTE} from "../index.js"
-import service from "../../appwrite/config.js";
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
+import storageServices from "../../appwrite/storage.js";
+import dbServices from "../../appwrite/CRUD.js";
 
 function PostForm({post}) {
     const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
@@ -20,11 +21,11 @@ function PostForm({post}) {
 
     const submit = async (data) => {
         if(post){
-            const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
+            const file = data.image[0] ? await storageServices.uploadFile(data.image[0]) : null;
             if(file){
-                 await service.deleteFile(post.featuredImage);
+                 await storageServices.deleteFile(post.featuredImage);
             }
-            const dbPost = await service.updatePost(post.$id, {
+            const dbPost = await dbServices.updatePost(post.$id, {
                 ...data,
                 featuredImage: file ? file.$id : undefined
             });
@@ -32,9 +33,9 @@ function PostForm({post}) {
                 navigate(`/post/${dbPost.$id}`);
             }
         }else{
-            const file = data.image[0] ? await service.uploadFile(data.image[0]) : null;
+            const file = data.image[0] ? await storageServices.uploadFile(data.image[0]) : null;
             if(file){
-                const dbPost = await service.createPost({
+                const dbPost = await dbServices.createPost({
                     ...data,
                     featuredImage: file ? file.$id : undefined,
                     userId: userData.$id
@@ -98,7 +99,7 @@ function PostForm({post}) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={service.getFilePreview(post.featuredImage)}
+                            src={storageServices.getFilePreview(post.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
                         />

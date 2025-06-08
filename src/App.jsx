@@ -1,4 +1,3 @@
-import './App.css'
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import authServices from "./appwrite/auth";

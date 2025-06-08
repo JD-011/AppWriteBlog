@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Container, PostForm} from "../components"
-import service from "../appwrite/config.js";
+import dbServices from "../appwrite/CRUD.js";
 import {useNavigate, useParams} from "react-router-dom";
 
 function EditPost() {
@@ -9,7 +9,7 @@ function EditPost() {
     const navigate = useNavigate();
     useEffect(() => {
         if (slug) {
-            service.getPost(slug).then((post) => {
+            dbServices.getPost(slug).then((post) => {
                 if (post) {
                     setPost(post)
                 }
