@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
-import { useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import storageServices from "../appwrite/storage.js";
 import dbServices from "../appwrite/CRUD.js";
+import {getPosts} from "../store/postSlice.js";
 
 export default function Post() {
     const [post, setPost] = useState(null);
     const { slug } = useParams();
     const navigate = useNavigate();
+    const {posts} = useSelector(state => state.post);
+    const {images} = useSelector(state => state.image);
+    const dispatch = useDispatch();
 
     const userData = useSelector((state) => state.auth.userData);
 
@@ -17,10 +21,9 @@ export default function Post() {
 
     useEffect(() => {
         if (slug) {
-            dbServices.getPost(slug).then((post) => {
-                if (post) setPost(post);
-                else navigate("/");
-            });
+            const post = posts.find(post => post.$id === slug);
+            if (post) setPost(post);
+            else navigate("/");
         } else navigate("/");
     }, [slug, navigate]);
 
@@ -31,6 +34,7 @@ export default function Post() {
                 navigate("/");
             }
         });
+        dispatch(getPosts());
     };
 
     return post ? (
@@ -38,7 +42,7 @@ export default function Post() {
             <Container>
                 <div className="w-full flex justify-center mb-4 relative border rounded-xl p-2">
                     <img
-                        src={storageServices.getFilePreview(post.featuredImage)}
+                        src={images.find(image => image.id === post.featuredImage)?.url}
                         alt={post.title}
                         className="rounded-xl"
                     />

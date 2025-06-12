@@ -1,16 +1,17 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import storageServices from "../appwrite/storage.js";
+import {useSelector} from "react-redux";
 
 function PostCard({$id, title, featuredImage}) {
+    const {images} = useSelector(state => state.image);
+    let url = images.find(image => image.id === featuredImage)?.url;
 
     return (
         <Link to={`/post/${$id}`}>
             <div className='w-full bg-gray-100 rounded-xl p-4'>
                 <div className='w-full justify-center mb-4'>
-                    <img src={storageServices.getFilePreview(featuredImage)} alt={title}
+                    <img src={url} alt={title}
                          className='rounded-xl' />
-
                 </div>
                 <h2
                     className='text-xl font-bold'

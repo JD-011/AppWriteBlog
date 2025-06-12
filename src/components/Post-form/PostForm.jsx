@@ -2,9 +2,10 @@ import React, {useCallback, useEffect} from "react";
 import {useForm} from "react-hook-form";
 import {Button, Input, Select, RTE} from "../index.js"
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import storageServices from "../../appwrite/storage.js";
 import dbServices from "../../appwrite/CRUD.js";
+import {getPosts} from "../../store/postSlice.js";
 
 function PostForm({post}) {
     const {register, handleSubmit, watch, setValue, control, getValues} = useForm({
@@ -17,6 +18,7 @@ function PostForm({post}) {
     });
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const userData = useSelector((state) => state.auth.userData);
 
     const submit = async (data) => {
@@ -45,6 +47,7 @@ function PostForm({post}) {
                 }
             }
         }
+        dispatch(getPosts())
     }
 
     const slugTransform = useCallback((val) => {

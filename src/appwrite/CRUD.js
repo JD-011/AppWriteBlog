@@ -30,6 +30,7 @@ export class DBServices{
             )
         } catch (e){
             console.log("Appwrite serive :: createPost :: error", e);
+            return null;
         }
     }
 
@@ -48,20 +49,20 @@ export class DBServices{
             )
         } catch (e){
             console.log("Appwrite serive :: updatePost :: error", e);
+            return null;
         }
     }
 
     async deletePost(slug) {
         try {
-            await this.databases.deleteDocument(
+            return await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug
             )
-            return true;
         } catch (e){
             console.log("Appwrite serive :: deletePost :: error", e);
-            return false;
+            return null;
         }
     }
 
@@ -80,14 +81,15 @@ export class DBServices{
 
     async getPosts(queries = [Query.equal('status', ['active'])]) {
         try{
-            return await this.databases.listDocuments(
+            const res =  await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 queries
             )
+            return res.documents
         } catch (e) {
             console.log("Appwrite serive :: listPosts :: error", e);
-            return false;
+            return null;
         }
     }
 
