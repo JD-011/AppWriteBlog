@@ -20,7 +20,7 @@ export class StorageServices{
                 file
             )
         } catch (e){
-            console.log("Appwrite serive :: uploadFile :: error", e);
+            console.log("Appwrite serive :: uploadFile :: error:", e);
             return null;
         }
     }
@@ -33,7 +33,7 @@ export class StorageServices{
             )
             return true;
         } catch (e){
-            console.log("Appwrite serive :: deleteFile :: error", e);
+            console.log("Appwrite serive :: deleteFile :: error:", e);
             return false;
         }
     }

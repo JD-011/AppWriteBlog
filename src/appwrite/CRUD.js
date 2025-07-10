@@ -29,7 +29,7 @@ export class DBServices{
                 }
             )
         } catch (e){
-            console.log("Appwrite serive :: createPost :: error", e);
+            console.log("Appwrite serive :: createPost :: error:", e);
             return null;
         }
     }
@@ -48,7 +48,7 @@ export class DBServices{
                 }
             )
         } catch (e){
-            console.log("Appwrite serive :: updatePost :: error", e);
+            console.log("Appwrite serive :: updatePost :: error:", e);
             return null;
         }
     }
@@ -61,7 +61,7 @@ export class DBServices{
                 slug
             )
         } catch (e){
-            console.log("Appwrite serive :: deletePost :: error", e);
+            console.log("Appwrite serive :: deletePost :: error:", e);
             return null;
         }
     }
@@ -74,7 +74,7 @@ export class DBServices{
                 slug
             )
         } catch (e){
-            console.log("Appwrite serive :: getPost :: error", e);
+            console.log("Appwrite serive :: getPost :: error:", e);
             return false;
         }
     }
@@ -88,7 +88,7 @@ export class DBServices{
             )
             return res.documents
         } catch (e) {
-            console.log("Appwrite serive :: listPosts :: error", e);
+            console.log("Appwrite serive :: listPosts :: error:", e);
             return null;
         }
     }

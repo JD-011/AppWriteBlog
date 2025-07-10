@@ -7,6 +7,7 @@ import {getFilePreview} from "../store/imageSlice.js";
 
 function AllPosts() {
     const dispatch = useDispatch();
+    const {status: authStatus} = useSelector(state => state.auth);
     const {posts, status} = useSelector(state => state.post);
     const {status: imgStatus} = useSelector(state => state.image);
 
@@ -14,7 +15,7 @@ function AllPosts() {
         if (status === 'idle') {
             dispatch(getPosts());
         }
-    }, [status, dispatch])
+    }, [authStatus, dispatch])
 
     useEffect(() => {
         if (status === "succeeded" && imgStatus === "idle") {

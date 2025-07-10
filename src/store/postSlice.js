@@ -15,15 +15,25 @@ export const getPosts = createAsyncThunk('post/getPosts', async () => {
 export const postSlice = createSlice({
     name: "post",
     initialState,
-    reducers: {},
+    reducers: {
+        removeData: (state) => {
+            state.posts = [];
+            state.status = 'idle';
+            state.error = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getPosts.pending, (state) => {
                 state.status = 'loading'
             })
             .addCase(getPosts.fulfilled, (state, action) => {
-                state.status = 'succeeded'
-                state.posts = action.payload
+                if(action.payload){
+                    state.status = 'succeeded'
+                    state.posts = action.payload
+                }else {
+                    state.status = 'idle'
+                }
             })
             .addCase(getPosts.rejected, (state, action) => {
                 state.status = 'failed';
@@ -31,5 +41,7 @@ export const postSlice = createSlice({
             })
     }
 })
+
+export const {removeData} = postSlice.actions;
 
 export default postSlice.reducer;

@@ -14,10 +14,16 @@ export const imageSlice = createSlice({
         getFilePreview: (state, action) => {
             const url = storageServices.getFilePreview(action.payload).href;
             state.images.push({id: action.payload, url});
+            state.status = 'succeeded';
+        },
+        removeData: (state) => {
+            state.images = [];
+            state.status = 'idle';
+            state.error = null;
         }
     },
 })
 
-export const {getFilePreview} = imageSlice.actions;
+export const {getFilePreview, removeData} = imageSlice.actions;
 
 export default imageSlice.reducer;
