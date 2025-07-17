@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import authServices from "./appwrite/auth";
 import {login, logout} from "./store/authSlice";
-import {Header, Footer, Container} from "./components"
+import {Header, Footer, Loader} from "./components"
 import {Outlet} from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { getPosts } from "./store/postSlice";
@@ -52,16 +52,8 @@ function App() {
             </div>
         </div>
     ) : (
-        <div className="w-full py-8 mt-4 text-center">
-            <Container>
-                <div className="flex flex-wrap">
-                    <div className="p-2 w-full">
-                        <h1 className="text-2xl font-bold hover:text-gray-500">
-                            Loading...
-                        </h1>
-                    </div>
-                </div>
-            </Container>
+        <div className="flex items-center justify-center min-h-screen">
+            <Loader />
         </div>
     );
 }

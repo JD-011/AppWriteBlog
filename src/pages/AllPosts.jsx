@@ -1,9 +1,17 @@
-import {Container, PostCard} from "../components"
+import {Container, PostCard, Loader} from "../components"
 import { useSelector } from 'react-redux';
 
 
 function AllPosts() {
-    const {posts} = useSelector(state => state.post);
+    const {posts, status: postStatus} = useSelector(state => state.post);
+
+    if (postStatus === "loading") {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <Loader />
+            </div>
+        );
+    }
 
     return (
         <div className={'w-full py-8'}>

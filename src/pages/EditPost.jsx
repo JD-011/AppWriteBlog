@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Container, PostForm} from "../components"
+import {Container, PostForm, Loader} from "../components"
 import {useNavigate, useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 
@@ -19,16 +19,8 @@ function EditPost() {
 
     if (postStatus === "loading") {
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <Container>
-                    <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Loading post...
-                            </h1>
-                        </div>
-                    </div>
-                </Container>
+            <div className="flex items-center justify-center min-h-screen">
+                <Loader />
             </div>
         );
     }

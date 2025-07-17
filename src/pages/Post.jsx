@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Button, Container } from "../components";
+import { Button, Container, Loader } from "../components";
 import parse from "html-react-parser";
 import {useDispatch, useSelector} from "react-redux";
 import storageServices from "../appwrite/storage.js";
@@ -36,16 +36,8 @@ export default function Post() {
 
     if (postStatus === "loading") {
         return (
-            <div className="w-full py-8 mt-4 text-center">
-                <Container>
-                    <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                Loading post...
-                            </h1>
-                        </div>
-                    </div>
-                </Container>
+            <div className="flex items-center justify-center min-h-screen">
+                <Loader />
             </div>
         );
     }

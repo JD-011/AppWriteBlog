@@ -12,11 +12,13 @@ import AuthLayout from "./AuthLayout.jsx";
 import Login from "./Login.jsx";
 import Signup from "./Signup.jsx";
 import PostCard from "./PostCard.jsx";
+import Loader from './Loader.jsx';
 
 export {
     Header,
     Footer,
     Container,
+    Loader,
     Logo,
     LogoutBtn,
     Button,
