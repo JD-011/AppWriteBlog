@@ -1,29 +1,9 @@
-import React, {useEffect} from "react";
 import {Container, PostCard} from "../components"
-import { useSelector, useDispatch } from 'react-redux';
-import {getPosts} from "../store/postSlice.js";
-import {getFilePreview} from "../store/imageSlice.js";
+import { useSelector } from 'react-redux';
 
 
 function AllPosts() {
-    const dispatch = useDispatch();
-    const {status: authStatus} = useSelector(state => state.auth);
-    const {posts, status} = useSelector(state => state.post);
-    const {status: imgStatus} = useSelector(state => state.image);
-
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(getPosts());
-        }
-    }, [authStatus, dispatch])
-
-    useEffect(() => {
-        if (status === "succeeded" && imgStatus === "idle") {
-            posts.forEach((post) => {
-                dispatch(getFilePreview(post.featuredImage));
-            });
-        }
-    }, [status, imgStatus, posts, dispatch]);
+    const {posts} = useSelector(state => state.post);
 
     return (
         <div className={'w-full py-8'}>

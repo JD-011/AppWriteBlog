@@ -2,11 +2,17 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import authServices from "./appwrite/auth";
 import {login, logout} from "./store/authSlice";
-import {Header, Footer} from "./components"
+import {Header, Footer, Container} from "./components"
 import {Outlet} from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { getPosts } from "./store/postSlice";
+import { getFilePreview } from "./store/imageSlice";
 
 function App() {
     const [loading, setLoading] = useState(true);
+    const {status: authStatus} = useSelector(state => state.auth);
+    const {posts, status: postStatus} = useSelector(state => state.post);
+    const {status: imgStatus} = useSelector(state => state.image);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,6 +27,20 @@ function App() {
             .finally(() => setLoading(false));
     }, [])
 
+    useEffect(() => {
+        if (authStatus && postStatus === "idle") {
+            dispatch(getPosts());
+        }
+    }, [dispatch, postStatus, authStatus]);
+
+    useEffect(() => {
+        if (postStatus === "succeeded" && imgStatus === "idle") {
+            posts.forEach((post) => {
+                dispatch(getFilePreview(post.featuredImage));
+            });
+        }
+    }, [posts, dispatch]);
+
     return !loading ? (
         <div className={'min-h-screen flex flex-wrap content-between bg-gray-400'}>
             <div className={'w-full block'}>
@@ -32,7 +52,17 @@ function App() {
             </div>
         </div>
     ) : (
-        <div>Loading</div>
+        <div className="w-full py-8 mt-4 text-center">
+            <Container>
+                <div className="flex flex-wrap">
+                    <div className="p-2 w-full">
+                        <h1 className="text-2xl font-bold hover:text-gray-500">
+                            Loading...
+                        </h1>
+                    </div>
+                </div>
+            </Container>
+        </div>
     );
 }
 

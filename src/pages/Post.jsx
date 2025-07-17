@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
@@ -11,21 +11,18 @@ export default function Post() {
     const [post, setPost] = useState(null);
     const { slug } = useParams();
     const navigate = useNavigate();
-    const {posts} = useSelector(state => state.post);
+    const {posts, status: postStatus} = useSelector(state => state.post);
     const {images} = useSelector(state => state.image);
     const dispatch = useDispatch();
-
     const userData = useSelector((state) => state.auth.userData);
-
     const isAuthor = post && userData ? post.userId === userData.$id : false;
 
     useEffect(() => {
         if (slug) {
             const post = posts.find(post => post.$id === slug);
-            if (post) setPost(post);
-            else navigate("/");
+            setPost(post);
         } else navigate("/");
-    }, [slug, navigate]);
+    }, [slug, navigate, posts]);
 
     const deletePost = () => {
         dbServices.deletePost(post.$id).then((status) => {
@@ -36,6 +33,22 @@ export default function Post() {
         });
         dispatch(getPosts());
     };
+
+    if (postStatus === "loading") {
+        return (
+            <div className="w-full py-8 mt-4 text-center">
+                <Container>
+                    <div className="flex flex-wrap">
+                        <div className="p-2 w-full">
+                            <h1 className="text-2xl font-bold hover:text-gray-500">
+                                Loading post...
+                            </h1>
+                        </div>
+                    </div>
+                </Container>
+            </div>
+        );
+    }
 
     return post ? (
         <div className="py-8">
