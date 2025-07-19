@@ -15,27 +15,23 @@ function Home() {
 
     if(posts.length === 0 || authStatus === false) {
         return (
-            <div className="w-full py-8 mt-4 text-center">
+            <div className="w-full py-10 flex flex-col items-center justify-center min-h-[60vh]">
                 <Container>
-                    <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-gray-500">
-                                {authStatus ? "No posts available" : "Login to see posts"}
-                            </h1>
-                        </div>
-                    </div>
+                    <h1 className="text-3xl font-bold text-gray-100 transition-colors duration-200 hover:text-gray-300 text-center">
+                        {authStatus ? "No posts available" : "Login to see posts"}
+                    </h1>
                 </Container>
             </div>
         )
     }
 
     return (
-        <div className='w-full py-8'>
+        <div className='w-full py-10'>
             <Container>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap -mx-2 justify-center'>
                     {posts.map((post) =>
                         (
-                            <div key={post.$id} className='p-2 w-1/4'>
+                            <div key={post.$id} className='p-2 w-full sm:w-1/2 md:w-1/3 lg:w-1/4'>
                                 <PostCard {...post} />
                             </div>
                         )

@@ -72,8 +72,10 @@ function PostForm({post}) {
     }, [watch, slugTransform, setValue])
 
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
-            <div className="w-2/3 px-2">
+        // Main form wrapper with consistent padding, background, and shadow for a card-like appearance
+        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap py-10 px-6 bg-gray-800 rounded-xl shadow-xl"> {/* Added padding, background, rounded, shadow */}
+            {/* Left Column for Title, Slug, and Content */}
+            <div className="w-full lg:w-2/3 px-2"> {/* Responsive width, consistent px-2 */}
                 <Input
                     label="Title :"
                     placeholder="Title"
@@ -89,9 +91,12 @@ function PostForm({post}) {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
                     }}
                 />
-                <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+                {/* RTE label text color and overall appearance */}
+                <RTE label={<span className="inline-block mb-1 pl-1 text-gray-200">Content :</span>} name="content" control={control} defaultValue={getValues("content")} />
             </div>
-            <div className="w-1/3 px-2">
+
+            {/* Right Column for Featured Image, Status, and Button */}
+            <div className="w-full lg:w-1/3 px-2"> {/* Responsive width, consistent px-2 */}
                 <Input
                     label="Featured Image :"
                     type="file"
@@ -100,21 +105,19 @@ function PostForm({post}) {
                     {...register("image", { required: !post })}
                 />
                 {post && (
-                    <div className="w-full mb-4">
+                    // Featured Image Preview Styling:
+                    // bg-gray-700 for a subtle background behind the image.
+                    // p-2 for padding, shadow-md for depth.
+                    // rounded-2xl for consistency with other images.
+                    <div className="w-full mb-4 bg-gray-700 p-2 shadow-md rounded-2xl">
                         <img
                             src={storageServices.getFilePreview(post.featuredImage)}
                             alt={post.title}
-                            className="rounded-lg"
+                            className="rounded-2xl w-full h-40 object-cover" // Consistent rounding and sizing
                         />
                     </div>
                 )}
-                <Select
-                    options={["active", "inactive"]}
-                    label="Status"
-                    className="mb-4"
-                    {...register("status", { required: true })}
-                />
-                <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
+                <Button type="submit" bgColor={post ? "bg-green-600" : undefined} className="w-full"> {/* Adjusted green shade for dark mode */}
                     {post ? "Update" : "Submit"}
                 </Button>
             </div>

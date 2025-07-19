@@ -20,9 +20,9 @@ const Loader = () => {
 
 const StyledWrapper = styled.div`
   .dot-spinner {
-    --uib-size: 2.8rem;
+    --uib-size: 4rem; /* Changed from 2.8rem to 4rem for a bigger size */
     --uib-speed: .9s;
-    --uib-color: #183153;
+    --uib-color: #3B82F6;
     position: relative;
     display: flex;
     align-items: center;
@@ -51,7 +51,7 @@ const StyledWrapper = styled.div`
     transform: scale(0);
     opacity: 0.5;
     animation: pulse0112 calc(var(--uib-speed) * 1.111) ease-in-out infinite;
-    box-shadow: 0 0 20px rgba(18, 31, 53, 0.3);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.4);
   }
 
   .dot-spinner__dot:nth-child(2) {

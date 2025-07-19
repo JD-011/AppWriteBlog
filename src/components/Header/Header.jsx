@@ -36,23 +36,29 @@ function Header() {
     ]
 
     return (
-        <header className="py-3 shadow bg-gray-500">
+        <header className="py-4 px-6 bg-gray-800 border-b border-gray-700 shadow-xl">
             <Container>
-                <nav className='flex'>
-                    <div className='mr-4'>
+                <nav className='flex items-center justify-between'>
+                    <div className='mr-6'>
                         <Link to='/'>
-                            <Logo width='70px'   />
-
+                            <Logo width='70px' />
                         </Link>
                     </div>
-                    <ul className='flex ml-auto'>
+                    <ul className='flex items-center gap-x-4'>
                         {navItems.map((item) =>
                             item.active ? (
                                 <li key={item.name}>
                                     <button
                                         onClick={() => navigate(item.slug)}
-                                        className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
-                                    >{item.name}</button>
+                                        className='px-5 py-2.5 font-semibold text-gray-100
+                                                   bg-gray-700 rounded-lg shadow-sm
+                                                   transition-all duration-200 ease-in-out
+                                                   hover:bg-gray-600 hover:shadow-md hover:scale-[1.02]
+                                                   active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-800
+                                                   cursor-pointer'
+                                    >
+                                        {item.name}
+                                    </button>
                                 </li>
                             ) : null
                         )}

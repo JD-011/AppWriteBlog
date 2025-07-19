@@ -42,17 +42,24 @@ function App() {
     }, [posts, dispatch]);
 
     return !loading ? (
-        <div className={'min-h-screen flex flex-wrap content-between bg-gray-400'}>
-            <div className={'w-full block'}>
+        // Set the entire application's background to a deep dark gray (gray-900)
+        // and default text color to a light gray (gray-100) for contrast.
+        // Use flex-col and justify-between to push the footer to the bottom.
+        <div className="min-h-screen flex flex-col justify-between
+                        bg-gray-900 text-gray-100">
+            <div className="w-full flex-grow"> {/* This div takes up available space, pushing footer down */}
                 <Header />
-                <main>
+                {/* Global padding for the main content area, ensures space around pages */}
+                <main className="py-10 px-6">
                     <Outlet />
                 </main>
-                <Footer />
             </div>
+            <Footer />
         </div>
     ) : (
-        <div className="flex items-center justify-center min-h-screen">
+        // The loader screen also gets the dark background for consistency
+        <div className="flex items-center justify-center min-h-screen
+                        bg-gray-900">
             <Loader />
         </div>
     );
